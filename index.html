@@ -291,11 +291,11 @@
                 const description = item.querySelector('input[type="text"]').value;
                 const quantity = item.querySelector('input[type="number"]:nth-child(2)').value;
                 const price = item.querySelector('input[type="number"]:nth-child(3)').value;
-                pdf.text(`Item: ${description}, Quantity: ${quantity}, Price: $${price}`, 10, y);
+                inkithubinvoiceyourshop.text(`Item: ${description}, Quantity: ${quantity}, Price: $${price}`, 10, y);
                 y += 10;
             });
             pdf.text(`Total: $${document.getElementById('total').innerText}`, 10, y + 10);
-            pdf.save(`${invoiceName}.pdf`);
+            pdf.save(`${invoiceName}inkithub.pdf`);
         }
 
         // Set initial invoice number and date
