@@ -6,157 +6,233 @@
     <title>Invoice Maker</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f3f7f9;
-            color: #444;
-        }
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 30px;
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-            font-weight: 700;
-        }
-        h3 {
-            text-align: center;
-            color: #555;
-            margin-top: -10px;
-        }
-        .invoice-header, .invoice-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 2px solid #eee;
-        }
-        .invoice-footer {
-            border-top: 2px solid #eee;
-            border-bottom: none;
-            margin-top: 30px;
-        }
-        .invoice-name-container {
-            margin: 20px auto;
-            text-align: center;
-        }
-        .invoice-name-container input {
-            padding: 8px 15px;
-            width: 100%;
-            max-width: 500px;
-            font-size: 18px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            background-color: #fafafa;
-        }
-        .item input[type="text"] {
-            flex: 2;
-            padding: 5px;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 15px;
-        }
-        .item input[type="number"] {
-            width: 80px;
-            padding: 5px;
-            text-align: right;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 15px;
-        }
-        .item button {
-            background-color: #ff5f57;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .item button:hover {
-            background-color: #e54942;
-        }
-        .add-item {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .add-item button {
-            padding: 12px 20px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-        .add-item button:hover {
-            background-color: #45a049;
-        }
-        .total {
-            text-align: right;
-            font-size: 22px;
-            font-weight: bold;
-            margin-top: 25px;
-            color: #333;
-        }
-        .popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-        }
-        .popup-content {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 10px;
-            max-width: 600px;
-            width: 90%;
-            text-align: left;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-        .popup-close {
-            cursor: pointer;
-            float: right;
-            font-size: 22px;
-            color: #555;
-        }
-        .invoice-footer button {
-            background-color: #2196F3;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 15px;
-            font-weight: 500;
-            margin-left: 10px;
-            transition: background-color 0.3s;
-        }
-        .invoice-footer button:hover {
-            background-color: #1976D2;
+        /* Same styles as before with minor adjustments */
+        /* Basic Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f8;
+    color: #444;
+}
+
+.container {
+    max-width: 850px;
+    margin: 50px auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styling */
+h2 {
+    text-align: center;
+    color: #333;
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    text-align: center;
+    color: #666;
+    font-weight: 600;
+    margin-top: -5px;
+}
+
+/* Invoice Name Input */
+.invoice-name-container {
+    margin: 30px auto;
+    text-align: center;
+}
+
+.invoice-name-container input {
+    padding: 10px 15px;
+    width: 100%;
+    max-width: 500px;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.invoice-name-container input:focus {
+    border-color: #4CAF50;
+}
+
+/* Invoice Header & Footer */
+.invoice-header, .invoice-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 2px solid #e0e0e0;
+    font-size: 16px;
+}
+
+.invoice-footer {
+    border-top: 2px solid #e0e0e0;
+    border-bottom: none;
+    margin-top: 30px;
+}
+
+/* Item Styling */
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #f0f0f0;
+    border-radius: 6px;
+    background-color: #fafafa;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.item:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item input[type="text"],
+.item input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.item input[type="text"] {
+    flex: 2;
+    margin-right: 10px;
+}
+
+.item input[type="number"] {
+    width: 100px;
+    text-align: right;
+}
+
+.item input[type="text"]:focus,
+.item input[type="number"]:focus {
+    border-color: #4CAF50;
+}
+
+.item button {
+    background-color: #ff5f57;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.item button:hover {
+    background-color: #e54942;
+}
+
+/* Add Item Button */
+.add-item {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.add-item button {
+    padding: 14px 24px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-item button:hover {
+    background-color: #45a049;
+}
+
+/* Total Section */
+.total {
+    text-align: right;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 30px;
+    color: #333;
+}
+
+/* Popup Modal Styling */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    text-align: left;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.popup-close {
+    cursor: pointer;
+    float: right;
+    font-size: 24px;
+    color: #555;
+    transition: color 0.3s;
+}
+
+.popup-close:hover {
+    color: #333;
+}
+
+/* Footer Buttons */
+.invoice-footer button {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.invoice-footer button:hover {
+    background-color: #1976D2;
+}
+
+        /* Add these at the bottom for print support */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .container, .container * {
+                visibility: visible;
+            }
+            .container {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
         }
     </style>
 </head>
@@ -183,6 +259,7 @@
             <button onclick="viewInvoice()">See Invoice</button>
             <button onclick="downloadInvoice()">Download Invoice (Text)</button>
             <button onclick="downloadInvoicePDF()">Download Invoice (PDF)</button>
+            <button onclick="printInvoice()">Print Invoice</button> <!-- Print Button -->
         </div>
     </div>
     <div class="popup" id="invoice-popup">
@@ -284,21 +361,37 @@
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF();
             const invoiceName = document.getElementById('invoice-name').value || "Untitled Invoice";
+            pdf.setFontSize(18);
             pdf.text(invoiceName, 10, 10);
+            pdf.setFontSize(12);
+            let y = 30;
+            pdf.text('Description', 10, y);
+            pdf.text('Quantity', 100, y);
+            pdf.text('Price', 140, y);
+            pdf.text('Total', 180, y);
+            y += 10;
+
             const items = document.querySelectorAll('.item');
-            let y = 20;
             items.forEach(item => {
                 const description = item.querySelector('input[type="text"]').value;
                 const quantity = item.querySelector('input[type="number"]:nth-child(2)').value;
                 const price = item.querySelector('input[type="number"]:nth-child(3)').value;
-                inkithubinvoiceyourshop.text(`Item: ${description}, Quantity: ${quantity}, Price: $${price}`, 10, y);
+                const total = (parseFloat(quantity) * parseFloat(price)).toFixed(2);
+
+                pdf.text(description, 10, y);
+                pdf.text(quantity.toString(), 100, y);
+                pdf.text(`$${price}`, 140, y);
+                pdf.text(`$${total}`, 180, y);
                 y += 10;
             });
-            pdf.text(`Total: $${document.getElementById('total').innerText}`, 10, y + 10);
-            pdf.save(`${invoiceName}inkithub.pdf`);
+            pdf.text(`Grand Total: $${document.getElementById('total').innerText}`, 140, y + 10);
+            pdf.save(`${invoiceName}.pdf`);
         }
 
-        // Set initial invoice number and date
+        function printInvoice() {
+            window.print();
+        }
+
         document.getElementById('invoice-number').innerText = Math.floor(Math.random() * 100000000000);
         document.getElementById('invoice-date').innerText = new Date().toISOString().split('T')[0];
     </script>
